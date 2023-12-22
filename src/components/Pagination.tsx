@@ -1,19 +1,22 @@
-import React from "react";
-
 interface Props {
-  page: number;
+  currentPage: number;
   totalPage: number;
   onPageChange: (page: number) => void;
 }
 
-const Pagination = ({ page, onPageChange, totalPage }: Props) => {
-  const pages = [...Array(totalPage).keys()].map((i) => i + 1);
+const Pagination = ({ currentPage, onPageChange, totalPage }: Props) => {
+  const pages = Array.from({ length: totalPage }, (_, i) => i + 1);
 
   return (
-    <div>
-      {pages.map((p) => (
-        <button key={p} onClick={() => onPageChange(p)} disabled={p === page}>
-          {p}
+    <div className="pagination-container">
+      {pages.map((page) => (
+        <button
+          key={page}
+          className={page === currentPage ? "active" : ""}
+          onClick={() => onPageChange(page)}
+          disabled={page === currentPage}
+        >
+          {page}
         </button>
       ))}
     </div>
